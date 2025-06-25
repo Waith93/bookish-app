@@ -3,6 +3,7 @@ from flask_migrate import Migrate
 from flask_restful import Api
 from .models import db
 from server.routes.user import Register, Login, Profile, ResetPassword
+from server.routes.book import Books, BookByID
 from flask_jwt_extended import JWTManager
 
 
@@ -16,7 +17,7 @@ app.json.compact = False
 db.init_app(app)
 migrate = Migrate(app, db)
 api = Api(app)
-jwt = JWTmanager(app)
+jwt = JWTManager(app)
 
 @app.route('/')
 def home():
@@ -27,3 +28,6 @@ api.add_resource(Register, '/register')
 api.add_resource(Login, '/login')
 api.add_resource(Profile, '/profile')
 api.add_resource(ResetPassword, '/reset-password')
+
+api.add_resource(Books, '/books')
+api.add_resource(BookByID, '/books/<int:id>')

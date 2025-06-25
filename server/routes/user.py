@@ -1,7 +1,7 @@
 from flask import request, jsonify
 from flask_restful import Resource
-from flask_jwt_extended import JWTManager
-from models import db, User
+from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
+from ..models import db, User
 
 class Register(Resource):
     def post(self):
@@ -32,14 +32,17 @@ class Login(Resource):
 
         user = User.query.filter_by(username=username).first()
         if user and user.check_password(password):
-            token = create_access_token(identity=user.id)
-            return {"access_token": "JWT token"}, 200
+            token = create_access_token(identity=str(user.id))
+            return {
+                    "message": "Login successful",
+                    "access_token": token
+                   }, 200
         return {"error": "Invalid credentials"}, 401
 
 class Profile(Resource):
     @jwt_required()
     def get(self):
-        user_id = get_jwt_identity()
+        user_id = int(get_jwt_identity())
         user = User.query.get(user_id)
         if not user:
             return {"error": "User not found"}, 404
