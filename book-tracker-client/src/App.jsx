@@ -2,18 +2,17 @@ import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
 import Home from './pages/Home';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import ResetPassword from './pages/ResetPassword';
-import Dashboard from './pages/Dashboard';
 import Books from './pages/Books';
 import BookDetail from './pages/BookDetail';
 import ReadingList from './pages/ReadingList';
 import Library from './pages/Library';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import ResetPassword from './pages/ResetPassword';
 
-function App() {
+export default function App() {
   return (
-    <div>
+    <div className="bg-black text-white">
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -22,7 +21,6 @@ function App() {
         <Route path="/reset-password" element={<ResetPassword />} />
 
         <Route element={<ProtectedRoute />}>
-          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/books" element={<Books />} />
           <Route path="/books/:id" element={<BookDetail />} />
           <Route path="/reading-list" element={<ReadingList />} />
@@ -32,5 +30,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
