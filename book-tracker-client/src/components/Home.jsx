@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import API from '../api/api';
+import API from '../api/api.js';
 import BookCard from '../components/BookCard';
 
 export default function Home() {
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
-    API.get('/api/books').then(res => setBooks(res.data));
+    API.get('/api/books').then(data => setBooks(data)).catch(err => console.error(err));
   }, []);
 
   return (
@@ -15,7 +15,7 @@ export default function Home() {
       <div className="relative h-96 bg-cover bg-center" style={{ backgroundImage: `url(${books[0]?.cover_url})` }}>
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent" />
         <div className="absolute bottom-10 left-10 text-white">
-          <h1 className="text-4xl font-bold">Featured Book</h1>
+          <h1 className="text-4xl font-bold text-red-600">Featured Book</h1>
           <p className="max-w-lg mt-2">{books[0]?.description}</p>
         </div>
       </div>

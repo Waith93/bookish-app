@@ -1,19 +1,11 @@
-/* src/index.css */
-
-/* 1. Tailwind’s core layers — leave these! */
+@import "tailwindcss";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* 2. Your custom Netflix-style tweaks below */
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
 
+/* Optional custom styles */
 body {
   background-color: #141414;
+  color: white;
 }
