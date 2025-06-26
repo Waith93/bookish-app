@@ -17,13 +17,13 @@ export default function Home() {
           </p>
         </div>
       </div>
-      <div className="p-4">
+      {/* <div className="p-4">
         <h2 className="text-white text-2xl mb-2">Popular Now</h2>
         <div className="flex overflow-x-scroll scrollbar-hide">
           {books.map(book => <BookCard key={book.id} book={book} />)}
         </div>
         
-      </div>
+      </div> */}
       
     </div>
     
