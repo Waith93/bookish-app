@@ -4,6 +4,7 @@ from flask_restful import Api
 from .models import db
 from server.routes.user import Register, Login, Profile, ResetPassword
 from server.routes.book import Books, BookByID
+from server.routes.reading_list import Reading_List, ReadingListByID
 from flask_jwt_extended import JWTManager
 
 
@@ -31,3 +32,6 @@ api.add_resource(ResetPassword, '/reset-password')
 
 api.add_resource(Books, '/books')
 api.add_resource(BookByID, '/books/<int:id>')
+
+api.add_resource(Reading_List, '/reading_list')
+api.add_resource(ReadingListByID, '/reading_list/<int:id>')
