@@ -1,27 +1,26 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState } from 'react';
+import api from '../api/api'; // assumes your API helper is in src/api/api.js
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem('token') || null);
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) setUser({ token });
-  }, []);
-
-  const login = (token) => {
-    localStorage.setItem('token', token);
-    setUser({ token });
+  const login = async (email, password) => {
+    const res = await api.post('/login', { email, password });
+    localStorage.setItem('token', res.token); // store JWT
+    setToken(res.token);
   };
 
   const logout = () => {
     localStorage.removeItem('token');
-    setUser(null);
+    setToken(null);
   };
 
+  const isAuthenticated = !!token;
+
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ token, login, logout, isAuthenticated }}>
       {children}
     </AuthContext.Provider>
   );
