@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:5555';
+const BASE_URL = 'http://localhost:5555/api';
 async function request(path, options = {}) {
   const token = localStorage.getItem('token');
   const headers = {'Content-Type': 'application/json', ...(token && {Authorization: `Bearer ${token}`})};
