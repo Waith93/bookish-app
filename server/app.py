@@ -36,7 +36,7 @@ def serve_react_app(path=''):
 api.add_resource(Register, '/register')
 api.add_resource(Login, '/login')
 api.add_resource(Profile, '/profile')
-api.add_resource(ResetPassword, '/reset-password')
+api.add_resource(ResetPassword, '/api/reset-password')
 
 api.add_resource(Books, '/api/books')
 api.add_resource(BookByID, '/books/<int:id>')
