@@ -1,8 +1,14 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 export default function Navbar() {
-  const { user, logout } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
 
   return (
     <nav className="bg-black text-white px-8 py-4 flex items-center justify-between shadow-md">
@@ -25,9 +31,10 @@ export default function Navbar() {
         <Link to="/library" className="hover:text-red-500 transition">
           Library
         </Link>
-        {user ? (
+
+        {isAuthenticated ? (
           <button
-            onClick={logout}
+            onClick={handleLogout}
             className="hover:text-red-500 transition focus:outline-none"
           >
             Logout

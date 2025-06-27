@@ -13,14 +13,19 @@ export default function Login() {
   };
 
   const handleSubmit = async e => {
-    e.preventDefault();
-    try {
-      await login(formData.email, formData.password);
-      navigate('/dashboard');
-    } catch (err) {
-      setError('Failed to log in');
+   e.preventDefault();
+  setError('');
+  try {
+    const result = await login(formData.email, formData.password);
+    if (result.success) {
+      navigate('/dashboard');  // <-- should redirect
+    } else {
+      setError('Login failed');  // optional fallback
     }
-  };
+  } catch (err) {
+    setError('Invalid credentials');  // show this if backend returns 401
+  }
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-black text-white">
