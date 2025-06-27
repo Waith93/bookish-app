@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react';
-import api from '../api/api'; // assumes your API helper is in src/api/api.js
+import api from '../api/api';
 
 const AuthContext = createContext();
 
@@ -8,8 +8,8 @@ export function AuthProvider({ children }) {
 
   const login = async (email, password) => {
     const res = await api.post('/login', { email, password });
-    localStorage.setItem('token', res.token); // store JWT
-    setToken(res.token);
+    localStorage.setItem('token', res.access_token); // fixed here
+    setToken(res.access_token);
   };
 
   const logout = () => {
@@ -17,10 +17,16 @@ export function AuthProvider({ children }) {
     setToken(null);
   };
 
+  const signup = async (email, password) => {
+    const res = await api.post('/register', { email, password });
+    localStorage.setItem('token', res.access_token); // fixed here
+    setToken(res.access_token);
+  };
+
   const isAuthenticated = !!token;
 
   return (
-    <AuthContext.Provider value={{ token, login, logout, isAuthenticated }}>
+    <AuthContext.Provider value={{ token, login, logout, signup, isAuthenticated }}>
       {children}
     </AuthContext.Provider>
   );
