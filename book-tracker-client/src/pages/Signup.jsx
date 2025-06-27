@@ -15,16 +15,17 @@ export default function Signup() {
   const handleSubmit = async e => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
-      return;
-    }
-    try {
-      await signup(formData.email, formData.password);
-      navigate('/dashboard');
-    } catch (err) {
-      setError('Failed to create account');
-    }
-  };
+    setError('Passwords do not match');
+    return;
+  }
+
+  const result = await signup(formData.email, formData.password);
+  if (!result.success) {
+    setError(result.message); 
+  } else {
+    navigate('/dashboard');
+  }
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-black text-white">
