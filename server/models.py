@@ -43,6 +43,7 @@ class Book(db.Model, SerializerMixin):
     author = db.Column(db.String)
     description = db.Column(db.String)
     publish_year = db.Column(db.Integer)
+    cover_url = db.Column(db.String)
 
     readinglists = relationship('ReadingList', back_populates='book', cascade='all, delete')
     libraries = relationship('Library', back_populates='book', cascade='all, delete')
