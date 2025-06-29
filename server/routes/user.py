@@ -3,7 +3,7 @@ from flask_restful import Resource
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 from ..models import db, User
 
-class Register(Resource):
+class Signup(Resource):
     def post(self):
         data = request.get_json()
         username = data.get("username")

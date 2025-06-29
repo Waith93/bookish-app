@@ -9,9 +9,13 @@ export function AuthProvider({ children }) {
 const login = async (email, password) => {
   try {
     const res = await api.post('/login', { email, password });
-    console.log('Login response:', res); // ✅ Confirm it’s shaped { success, data }
+    console.log('Login response:', res);
 
-    const { access_token } = res.data; // <-- this was the issue
+    if (!res.success) {
+      return { success: false, message: res.message || 'Login failed' };
+    }
+
+    const { access_token } = res.data;
 
     if (access_token) {
       localStorage.setItem('token', access_token);
@@ -32,8 +36,8 @@ const login = async (email, password) => {
     setToken(null);
   };
 
-const signup = async (email, password) => {
-  return await api.post('/register', { email, password });
+const signup = async (username, email, password) => {
+  return await api.post('/signup', { username, email, password });
 };
 
   const isAuthenticated = !!token;

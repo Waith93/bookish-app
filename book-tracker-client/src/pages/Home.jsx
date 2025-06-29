@@ -3,7 +3,7 @@ import API from '../api/api.js';
 import BookCard from '../components/BookCard';
 export default function Home() {
   const [books, setBooks] = useState([]);
-  useEffect(() => {API.get('/api/books').then(data => setBooks(data)).catch(console.error);}, []);
+  useEffect(() => {API.get('/books').then(data => setBooks(data)).catch(console.error);}, []);
   return (
     <div className="bg-black min-h-screen">
       <div className="relative h-[500px] bg-cover bg-center" style={{backgroundImage: `url(${books[0]?.cover_url})`}}>

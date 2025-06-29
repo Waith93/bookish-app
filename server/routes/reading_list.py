@@ -6,9 +6,18 @@ from ..models import db, ReadingList
 class Reading_List(Resource):
     @jwt_required()
     def get(self):
-        user_id = get_jwt_identity()
-        items = ReadingList.query.filter_by(user_id=user_id).all()
-        return [item.to_dict() for item in items], 200
+        try:
+            user_id = get_jwt_identity()
+            items = ReadingList.query.filter_by(user_id=user_id).all()
+
+            return [{
+                "id": item.id,
+                "book": item.book.to_dict()  
+            } for item in items], 200
+
+        except Exception as e:
+            print("Error fetching reading list:", e)
+            return {"error": "Server error fetching reading list"}, 500
 
     @jwt_required()
     def post(self):

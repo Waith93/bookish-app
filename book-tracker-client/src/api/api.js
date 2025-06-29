@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:5555/api';
+const BASE_URL = 'http://localhost:5000/api';
 
 async function request(path, options = {}) {
   const token = localStorage.getItem('token');

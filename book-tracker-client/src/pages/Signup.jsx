@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext';
 export default function Signup() {
   const { signup } = useAuth();
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({ email: '', password: '', confirmPassword: '' });
+  const [formData, setFormData] = useState({username: '', email: '', password: '', confirmPassword: '' });
   const [error, setError] = useState('');
 
   const handleChange = e => {
@@ -19,7 +19,7 @@ export default function Signup() {
     return;
   }
 
-  const result = await signup(formData.email, formData.password);
+  const result = await signup(formData.username, formData.email, formData.password);
   if (!result.success) {
     setError(result.message); 
   } else {
@@ -33,6 +33,19 @@ export default function Signup() {
         <h2 className="text-2xl font-bold mb-6 text-red-600 text-center">Sign Up</h2>
 
         {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
+
+        <div className="mb-4">
+          <label htmlFor="username" className="block mb-1 text-sm">Username:</label>
+          <input
+            type="username"
+            name="username"
+            required
+            className="w-full px-3 py-2 text-black placeholder-gray-700 rounded bg-gray-300 border border-gray-400 focus:outline-none focus:ring-2 focus:ring-red-600"
+            value={formData.username}
+            onChange={handleChange}
+            placeholder="Enter your username"
+          />
+        </div>
 
         <div className="mb-4">
           <label htmlFor="email" className="block mb-1 text-sm">Email:</label>

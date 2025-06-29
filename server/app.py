@@ -4,7 +4,7 @@ from flask_restful import Api
 from flask_cors import CORS
 import os
 from server.models import db
-from server.routes.user import Register, Login, Profile, ResetPassword
+from server.routes.user import Signup, Login, Profile, ResetPassword
 from server.routes.book import Books, BookByID
 from server.routes.reading_list import Reading_List, ReadingListByID
 from server.routes.library import LibraryRoute, LibraryByID
@@ -12,7 +12,7 @@ from flask_jwt_extended import JWTManager
 
 
 app = Flask(__name__, static_folder='static', static_url_path='/')
-CORS(app)
+CORS(app, origins=["http://127.0.0.1:5173", "http://localhost:5173"], supports_credentials=True)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["JWT_SECRET_KEY"] = "super-secret"
@@ -33,12 +33,12 @@ def serve_react_app(path=''):
         return send_from_directory(app.static_folder, 'index.html')
 
 # API Resources
-api.add_resource(Register, '/register')
-api.add_resource(Login, '/login')
+api.add_resource(Signup, '/api/signup')
+api.add_resource(Login, '/api/login')
 api.add_resource(Profile, '/profile')
 api.add_resource(ResetPassword, '/reset-password')
 
-api.add_resource(Books, '/api/books')
+api.add_resource(Books, '/books')
 api.add_resource(BookByID, '/books/<int:id>')
 
 api.add_resource(Reading_List, '/reading_list')

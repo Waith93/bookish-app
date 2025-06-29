@@ -145,6 +145,6 @@ books = [
 ]
 
 with app.app_context():
-    print(" Seeding books")
+    Book.query.delete()
     db.session.bulk_insert_mappings(Book, books)
     db.session.commit()

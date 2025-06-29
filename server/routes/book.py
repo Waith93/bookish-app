@@ -9,13 +9,14 @@ def book_to_dict(book):
         "title": book.title,
         "author": book.author,
         "description": book.description,
-        "year": book.publish_year
+        "year": book.publish_year,
+        "cover_url": book.cover_url
     }
 
 class Books(Resource):
     def get(self):
         books = Book.query.all()
-        return [book.to_dict() for book in books], 200
+        return [book_to_dict(book) for book in books], 200
 
     def post(self):
         data = request.get_json()
@@ -24,6 +25,7 @@ class Books(Resource):
         author = data.get("author")
         description = data.get("description", "")
         year = data.get("year")
+        cover_url = data.get("cover_url")
 
         if not title or not author or not year:
             return {"error": "Missing required fields"}, 400
@@ -32,7 +34,8 @@ class Books(Resource):
             title=title,
             author=author,
             description=description,
-            publish_year=year
+            publish_year=year,
+            cover_url=cover_url
         )
         db.session.add(new_book)
         db.session.commit()
