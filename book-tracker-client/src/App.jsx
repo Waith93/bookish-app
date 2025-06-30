@@ -12,6 +12,7 @@ import Signup from './pages/Signup';
 import ResetPassword from './pages/ResetPassword';
 import './index.css';
 import MustLogin from './pages/MustLogin'; 
+import Profile from './pages/Profile';
 
 
 export default function App() {
@@ -32,6 +33,7 @@ export default function App() {
           <Route path="/books/:id" element={<BookDetail />} />
           <Route path="/reading-list" element={<ReadingList />} />
           <Route path="/library" element={<Library />} />
+          <Route path="/Profile" element={<Profile />} />
         </Route>
       </Routes>
     </div>

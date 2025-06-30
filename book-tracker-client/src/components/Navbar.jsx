@@ -31,6 +31,9 @@ export default function Navbar() {
         <Link to="/library" className="hover:text-red-500 transition">
           Library
         </Link>
+        <Link to="/profile" className="text-white hover:text-red-500">
+          Profile
+        </Link>
 
         {isAuthenticated ? (
           <button
