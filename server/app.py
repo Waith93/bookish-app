@@ -33,8 +33,8 @@ def serve_react_app(path=''):
         return send_from_directory(app.static_folder, 'index.html')
 
 # API Resources
-api.add_resource(Signup, '/api/signup')
-api.add_resource(Login, '/api/login')
+api.add_resource(Signup, '/signup')
+api.add_resource(Login, '/login')
 api.add_resource(Profile, '/profile')
 api.add_resource(ResetPassword, '/reset-password')
 
